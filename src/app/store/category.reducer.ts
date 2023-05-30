@@ -13,7 +13,9 @@ export const initialCategoryState: CategoryState = {
     limit:0,
   products: [],
   skip:0,
-  total: 0
+  total: 0,
+  active:false,
+  length:0
   },
   loading: false,
   error: null

@@ -1,21 +1,9 @@
  
-
-
-  <div class="accordion" *ngIf="categoryFacade.categories$|async as  categories">
-    <div class="accordion-item">
-      <input type="checkbox" id="accordion-item-1" class="accordion-toggle">
-      <label for="accordion-item-1" class="accordion-header">dropdown</label>
-      <div class="accordion-content"  *ngFor="let category of categories?.products ">
-        <details>
-          <summary>{{ category.category }}</summary>
-          <ul>
-            
-              <a >{{ category.description }}</a>
-         
-          </ul>
-        </details>
+    <div *ngFor="let accordion of categories; let i = index" class="accordion">
+      <button class="accordion" (click)="toggleAccordion(i)" [class.active]="accordion.active">
+        {{ accordion.category }} {{accordion.active}}
+      </button>
+      <div class="panel" [style.display]="accordion.active ? 'block' : 'none'">
+        <p>{{ accordion.title }}</p>
       </div>
     </div>
-   
-  </div>
-  
