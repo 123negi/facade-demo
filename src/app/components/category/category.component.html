@@ -1,12 +1,12 @@
 <!-- component.html -->
 <div *ngIf="categories" class="accordion-container">
   <div *ngFor="let category of categories; let i = index" class="accordion">
-    <div class="accordion-header" (click)="toggleAccordion(i)" [class.active]="category.active">{{ category.category }}</div>
+    <div class="accordion-header" (click)="toggleAccordion(i)" [class.active]="category.active">{{ category.title }}</div>
     <div class="accordion-panel" [class.show]="category.active">
       <!-- Product Content -->
       <ng-container *ngIf="products && products.length > 0">
         <div *ngFor="let product of getFilteredProducts(category.id)">
-          <p>{{ product.title }}</p>
+          <p>{{ product.category }}</p>
           <div class="image-loop">
             <img *ngFor="let imageUrl of product.images" [src]="imageUrl" alt="Image">
           </div>
