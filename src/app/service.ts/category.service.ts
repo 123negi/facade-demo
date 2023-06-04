@@ -7,12 +7,17 @@ import { Category } from '../category.model';
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = 'https://dummyjson.com/product'; // Replace with your API endpoint
+  private categories  = 'https://dummyjson.com/product';
+  private Products  = 'https://dummyjson.com/products'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) {}
 
   getAllCategories(): Observable<any> {
-    debugger;
-    return this.http.get<any>(this.apiUrl);
+    return this.http.get<any>(this.categories);
   }
+
+  getAllProduct(): Observable<any> {
+    return this.http.get<any>(this.Products);
+  }
+
 }

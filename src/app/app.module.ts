@@ -9,6 +9,7 @@ import { appReducer } from './store/category.state';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { CategoryEffects } from './store/category.effects';
+import { ProductReducer, categoryReducer } from './store/category.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,10 @@ import { CategoryEffects } from './store/category.effects';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-   StoreModule.forRoot(appReducer),
+    StoreModule.forRoot({
+      category: categoryReducer,
+      product: ProductReducer
+    }),
    EffectsModule.forRoot([CategoryEffects])
   ],
   providers: [CategoryFacade],

@@ -10,41 +10,40 @@ import { CategoryFacade } from 'src/app/store/category.facade';
 export class CategoryComponent {
   categories:any;
   updatedProducts:any
+  products:any;
   constructor(public categoryFacade: CategoryFacade) {}
 
-  ngOnInit() {
-     
+  ngOnInit() { 
     this.categoryFacade.loadCategories();
-    this.categoryFacade.categories$.subscribe((categories) => {
-      if(categories){
-        this.categories = categories.products;
-      }
-      
-     });
-   
-  }
-
-
-  ngAfterViewInit() {
-    const accordions = document.getElementsByClassName('accordion');
     debugger
-   for (let i = 0; i < accordions.length; i++) {
-     const accordion = accordions[i] as HTMLElement;
-     accordion.addEventListener('click', () => {
-       accordion.classList.toggle('active');
-       const panel = accordion.nextElementSibling as HTMLElement;
-       if (panel.style.display === 'block') {
-         panel.style.display = 'none';
-       } else {
-         panel.style.display = 'block';
-       }
-     });
-   }
+    this.categoryFacade.loadCategoriesProduct();
+   this.category();
+   this.product();
   }
  
 
-  toggleAccordion(index: number) {
-    debugger
+  category(){
+    this.categoryFacade.categories.subscribe((categories) => {
+      if(categories.products.length>0){
+         this.categories =categories.products.map((v: any) => ({...v, isActive: true}))
+       }  
+     });
+   
+  }
+  product(){
+    this.categoryFacade.product$.subscribe((data) => {
+      debugger
+       console.log( data.product.products,"categoriescategoriescategories")
+       this.products =  data.product.products
+     });
+  }
+ 
+
+  toggleAccordion(index: number) {    
     this.categories[index].active = !this.categories[index].active;
+  }
+
+  getFilteredProducts(categoryId: number) {
+    return this.products.filter((product:any) => product.id === categoryId);
   }
 }

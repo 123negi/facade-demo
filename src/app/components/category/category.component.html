@@ -1,9 +1,20 @@
- 
-    <div *ngFor="let accordion of categories; let i = index" class="accordion">
-      <button class="accordion" (click)="toggleAccordion(i)" [class.active]="accordion.active">
-        {{ accordion.category }} {{accordion.active}}
-      </button>
-      <div class="panel" [style.display]="accordion.active ? 'block' : 'none'">
-        <p>{{ accordion.title }}</p>
-      </div>
+<!-- component.html -->
+<div *ngIf="categories" class="accordion-container">
+  <div *ngFor="let category of categories; let i = index" class="accordion">
+    <div class="accordion-header" (click)="toggleAccordion(i)" [class.active]="category.active">{{ category.category }}</div>
+    <div class="accordion-panel" [class.show]="category.active">
+      <!-- Product Content -->
+      <ng-container *ngIf="products && products.length > 0">
+        <div *ngFor="let product of getFilteredProducts(category.id)">
+          <p>{{ product.title }}</p>
+          <div class="image-loop">
+            <img *ngFor="let imageUrl of product.images" [src]="imageUrl" alt="Image">
+          </div>
+        </div>
+      </ng-container>
+      <p *ngIf="!products || products.length === 0">No products found.</p>
     </div>
+  </div>
+</div>
+
+

@@ -7,6 +7,7 @@ import * as CategoryActions from './category.actions';
 
 @Injectable()
 export class CategoryEffects {
+  
   loadCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoryActions.loadCategories),
@@ -20,6 +21,21 @@ export class CategoryEffects {
       )
     )
   );
+
+    
+  loadSecondData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CategoryActions.loadProductData),
+      switchMap(() =>
+        this.categoryService.getAllCategories().pipe(
+          map( product => CategoryActions.loadProductDataSuccess({product})),
+          catchError(error =>
+            of(CategoryActions.loadProductDataFailure({ error: error.message }))
+          )
+        )
+      )
+    )
+  )
 
   constructor(
     private actions$: Actions,
