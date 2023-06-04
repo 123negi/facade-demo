@@ -1,8 +1,9 @@
 export interface Category {
-  limit:number;
-  products:any[];
-  skip:number;
-  total:number;
-    // Add additional properties as needed
-  }
-  
+  id: string;
+  data: any[];
+}
+
+export interface Product {
+  id: string;
+  data: any[];
+}

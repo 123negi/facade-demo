@@ -1,28 +1,21 @@
 import { createReducer, on } from '@ngrx/store';
-import { Category } from '../category.model';
 import { loadCategoriesSuccess } from './category.actions';
+import { Category } from 'src/app/category.model';
 
 export interface CategoryState {
-  categories: Category;
-  loading: boolean;
+  categories: Category[];
   error: string | null;
 }
 
 export const initialCategoryState: CategoryState = {
-  categories:{
-    limit:0,
-  products: [],
-  skip:0,
-  total: 0
-  },
-  loading: false,
-  error: null
+  categories: [],
+  error: null,
 };
 
 export const categoryReducer = createReducer(
   initialCategoryState,
   on(loadCategoriesSuccess, (state, { categories }) => ({
     ...state,
-    categories
+    categories,
   }))
 );
